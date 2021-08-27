@@ -1,0 +1,21 @@
+DATA SEGMENT 
+ARRAY1 DB 10,20,30,40,50,60,70,80,90
+ARRAY2 DB 9 DUP(0)
+DATA ENDS 
+CODE SEGMENT 
+ASSUME CS:CODE , DS:DATA 
+START : MOV AX,DATA ;
+        MOV DS,AX; 
+        MOV CL, 09H ; 
+        LEA SI, ARRAY1 ;
+        LEA DI, ARRAY2+9 ;
+    BACK: MOV AL,[SI];
+          MOV [DI] ,AL;
+          INC SI ;
+          DEC DI; 
+          DEC CL ; 
+          JNZ BACK ; 
+         MOV AH, 4CH ; 
+          INT 21H ; 
+CODE     ENDS 
+END START 
